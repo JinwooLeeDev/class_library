@@ -45,9 +45,6 @@ public class BorrowDAO {
     // 3.1 대출 기록 확인 - SELECT
     // 3.2 반납 기록 등록 - UPDATE
 
-
-
-
     private Borrow cantBorrow (ResultSet rs) throws SQLException {
         Borrow borrow = new Borrow();
         borrow.setId(rs.getInt("id"));
