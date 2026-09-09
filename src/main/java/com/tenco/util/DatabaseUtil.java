@@ -1,4 +1,21 @@
 package com.tenco.util;
 
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class DatabaseUtil {
+    private static final String URL = "jdbc:mysql://localhost:3306/library?serverTimezone=Asia/Seoul";
+    private static final String DB_USER = System.getenv("DB_USER");
+    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
+
+    public static Connection getConnection() throws SQLException {
+        Connection connection = DriverManager.getConnection(URL, DB_USER, DB_PASSWORD);
+        System.out.println(connection.getMetaData().getDatabaseProductName());
+        System.out.println(connection.getMetaData().getDatabaseProductVersion());
+        return connection;
+    }
+
+
 }
