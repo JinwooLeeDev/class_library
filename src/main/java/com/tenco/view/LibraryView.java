@@ -4,6 +4,7 @@ import com.tenco.dto.Book;
 import com.tenco.dto.Borrow;
 import com.tenco.dto.Student;
 import com.tenco.service.LibraryService;
+import com.tenco.util.DatabaseUtil;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -55,6 +56,7 @@ public class LibraryView {
                     case 10: logout();              break;
                     case 11:
                         System.out.println("프로그램을 종료합니다.");
+                        DatabaseUtil.close();   // 커넥션 풀 종료
                         scanner.close();
                         return;
                     default:
