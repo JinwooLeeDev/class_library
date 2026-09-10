@@ -1,4 +1,6 @@
 package com.tenco.dto;
+
+
 import lombok.*;
 
 @Getter
@@ -6,8 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
 public class Book {
+
     private int id;
     private String title;
     private String author;
@@ -15,4 +17,5 @@ public class Book {
     private int publicationYear;
     private String isbn;
     private boolean available;
+
 }

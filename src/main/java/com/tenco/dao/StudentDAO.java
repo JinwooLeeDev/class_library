@@ -3,7 +3,6 @@ package com.tenco.dao;
 import com.tenco.dto.Student;
 import com.tenco.util.DatabaseUtil;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +12,7 @@ import java.util.List;
 
 public class StudentDAO {
 
+    // TODO - 추후 사용하는 측 확인해서 리턴 타입 결정
     // 학생 등록 기능
     public int addStudent(Student student) {
         int rows = 0;
@@ -36,37 +36,38 @@ public class StudentDAO {
 
     // 학생 전체 조회 기능
     public List<Student> getAllStudent() {
-        // select * from students;
         List<Student> studentList = new ArrayList<>();
-        // 중간에 빈 로직을 다른 예제 코드 보면서 완성해주세요
         String sql = """
-                select * from students
+                SELECT * FROM students ORDER BY id
                 """;
         try (Connection conn = DatabaseUtil.getConnection()) {
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                ResultSet rs = pstmt.executeQuery();
-                while (rs.next()) {
-                    studentList.add(createStudent(rs));
-                }
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                // 자료구조에 생성된 Student 객체를 하나씩 추가 함.
+                studentList.add(createStudent(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return studentList;
     }
-    // 학번으로 학생 조회 --> 로그인
-    public Student searchStudent(String studentId) {
+
+
+    // 학번으로 학생 조회
+    public Student getStudentByStudentId(String studentId) {
         String sql = """
-            SELECT * FROM students WHERE student_id = ?
-            """;
+                SELECT *
+                FROM students
+                WHERE student_id = ?
+                """;
         try (Connection conn = DatabaseUtil.getConnection()) {
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, studentId);
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    if (rs.next()) {
-                        return createStudent(rs);
-                    }
-                }
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, studentId);
+            ResultSet rs = pstmt.executeQuery();
+            // 굳이 결과집합이 단일행이라면 While 구문을 사용할 필요가 없다.
+            if (rs.next()) {
+                return createStudent(rs);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -80,17 +81,6 @@ public class StudentDAO {
         student.setName(rs.getString("name"));
         student.setStudentId(rs.getString("student_id"));
         return student;
-    }
-
-
-
-    // 테스트 코드 작성
-    public static void main(String[] args) {
-        // 샘플값 준비
-//        Student student = new Student("티모2", "90230002");
-//        StudentDAO studentDAO = new StudentDAO();
-//        studentDAO.addStudent(student);
-
     }
 
 }
