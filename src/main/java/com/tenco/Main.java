@@ -12,22 +12,23 @@ public class Main {
     public static void main(String[] args) {
 
         // 학생 전체 조회 테스트
-        StudentDAO studentDAO = new StudentDAO();
-        BookDAO bookDAO = new BookDAO();
-        BorrowDAO borrowDAO = new BorrowDAO();
-//        List<Student> studentList = studentDAO.getAllStudent();
+//        StudentDAO studentDAO = new StudentDAO();
+//        BookDAO bookDAO = new BookDAO();
+//        BorrowDAO borrowDAO = new BorrowDAO();
+////        List<Student> studentList = studentDAO.getAllStudent();
+////
+////        for (Student student : studentList) {
+////            System.out.println(student.toString());
+////        }
 //
-//        for (Student student : studentList) {
-//            System.out.println(student.toString());
-//        }
-
-        System.out.println(studentDAO.searchStudent("20230002"));
-
-        System.out.println(bookDAO.getAllBooks());
-        System.out.println(bookDAO.searchBooksByTitle("소프트웨어 공학"));
-
-
-        System.out.println(borrowDAO.getBorrowedBooks());
+//        System.out.println(studentDAO.searchStudent("20230002"));
+//
+//        System.out.println(bookDAO.getAllBooks());
+//        System.out.println(bookDAO.searchBooksByTitle("소프트웨어 공학"));
+//
+//
+//        System.out.println(borrowDAO.getBorrowedBooks());
+        BorrowDAO borrowDAO = new BorrowDAO();
 
     }
 }
